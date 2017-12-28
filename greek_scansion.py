@@ -84,7 +84,6 @@ def strip_str (string):
     :return: a string of text without diacritical markings
     :rtype: str
     """
-    
     bare_str = ''
     for ch in string:
         bare_ch = unicodedata.normalize('NFD', ch)[0]
@@ -104,9 +103,9 @@ def alnum_syl (string):
 
 def natural_length (syl):
     """Checks the natural length of syllable, returning LONG, SHORT, or UNKNOWN.
-    -- LONG are identified by long vowels, diphthongs, or long diacritics.  
-    -- SHORT are identified by short vowels or a short mark.  
-    -- UNKNOWN are α, ι, or υ without diacritics indicating length.  
+    -- LONG is identified by long vowels, diphthongs, or long diacritics.  
+    -- SHORT is identified by short vowels or a short mark.  
+    -- UNKNOWN is α, ι, or υ without diacritics indicating length.  
     """
     bare_syl = strip_str(syl)  #remove diacritics from vowels
     split_chs = unicodedata.normalize('NFD', syl) #get list including diacritics
@@ -128,8 +127,8 @@ def positional_length (syl, next_syl):
     """Takes the two sequential syllables and returns the positional length of 
     the first. Syllables can be created using any tool that separates vowel 
     clusters.  Stop + liquid rules follow the principles that apply in tragedy
-    (see notes below)."""
-    
+    (see notes below).
+    """
     #Check for wordbreak
     if re.search(r'\s', syl[-1]+next_syl[0]):
         wordbreak = True
@@ -195,20 +194,3 @@ def scan_line (line):
                 current_length = pos_len
         meter.append(current_length)
     return meter
-
-# TESTING
-stanza = """ποθουμένᾳ γὰρ φρενὶ πυνθάνομαι
-τὰν ἀμφινεικῆ Δηιάνειραν ἀεί,
-οἷά τινʼ ἄθλιον ὄρνιν,
-οὔποτʼ εὐνάζειν ἀδάκρυ-
-τον βλεφάρων πόθον, ἀλλʼ
-εὔμναϲτον ἀνδρὸϲ δεῖμα τρέφουϲαν ὁδοῦ
-ἐνθυμίοιϲ εὐναῖϲ ἀναν-
-δρώτοιϲι τρύχεϲθαι, κακὰν
-δύϲτανον ἐλπίζουϲαν αἶϲαν."""
-   
-for line in stanza.splitlines():
-    print(line)
-    print(scan_line(line))
-    print()
-#%%
