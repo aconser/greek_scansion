@@ -172,7 +172,8 @@ def positional_length (syl, next_syl):
     if next_syl == 'END' and status == SHORT:
         status = UNKNOWN
     return status
-        
+
+#PRIMARY FUNCTION
 def scan_line (line):
     """Scans a line of Greek poetry, as best as possible without knowing 
     whether ambiguous vowels are long by nature. Returns the meter as a list of
